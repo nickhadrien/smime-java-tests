@@ -5,23 +5,26 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-
 import java.util.HashMap;
 import java.util.Map;
+
 public class smimeCorrectEmailTest {
   private WebDriver driver;
   private Map<String, Object> vars;
   JavascriptExecutor js;
+
   @Before
   public void setUp() {
     driver = new FirefoxDriver();
     js = (JavascriptExecutor) driver;
     vars = new HashMap<>();
   }
+
   @After
   public void tearDown() {
     driver.quit();
   }
+
   @Test //Email совпадает с записанным в бд
   public void smimeCorrectEmail() {
     driver.get("***");
