@@ -3,11 +3,16 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
+
+import static org.junit.Assert.assertTrue;
 
 public class smimeNotEmailTest {
   private WebDriver driver;
@@ -31,7 +36,15 @@ public class smimeNotEmailTest {
     driver.get("***");
     driver.findElement(By.id("email")).click();
     driver.findElement(By.id("email")).sendKeys("***");
-    driver.findElement(By.id("email")).sendKeys(Keys.ENTER);
-    driver.findElement(By.linkText("Вернуться на стартовую страницу")).click();
+
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    By successIndicator = By.xpath("//span[@class='formerror' and contains(text(),'Укажите корректный e-mail адрес')]");
+    boolean isSuccess = wait.until(
+            ExpectedConditions.presenceOfElementLocated(successIndicator)
+    ).isDisplayed();
+
+    assertTrue("Сообщение об вводе данных появилось", isSuccess);
+
+    System.out.println("✓ Укажите корректный email");
   }
 }
